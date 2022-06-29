@@ -4,5 +4,6 @@
 int main() {
 	printf("%d", teste());
 	printf("Hello world");
+	printf("test");
 	return 0;
 }
