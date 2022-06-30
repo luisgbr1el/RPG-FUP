@@ -20,16 +20,20 @@ void SaveGame(char nickname[], int life, char inventory[])
 	// Criando arquivo
 	fptr = fopen(path,"w");
 	
-	// Se não for possível acessar o diretório (diretório nulo)...
+	// Se o diretório for nulo...
 	if(fptr == NULL)
 	{
 		printf("Erro ao salvar.");      
 	}
+	// Senão...
+	else
+	{
+		// Salvando arquivo
+		fprintf(fptr,"%s,%d,%s", nickname, life, inventory);
+		fclose(fptr);
+		printf("O jogo foi salvo com sucesso!");
+	}
 
-	// Salvando arquivo
-	fprintf(fptr,"%s,%d,%s", nickname, life, inventory);
-	fclose(fptr);
-	printf("O jogo foi salvo com sucesso!");
 }
 
 #endif
