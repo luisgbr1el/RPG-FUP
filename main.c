@@ -17,5 +17,9 @@ int main()
 	}
 	// ----
 	
+	// Exemplo de uso 'Dialogue()':
+	Dialogue("Hello World!", 5);
+	// ----
+	
 	return 0;
 }
