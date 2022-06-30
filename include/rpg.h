@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 void SaveGame(char nickname[], int life, char inventory[])
 {	
