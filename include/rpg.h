@@ -9,7 +9,7 @@ void SaveGame(char nickname[], int life, char inventory[])
 {	
 	// Pegar diretório atual
 	char path[MAX_BUF];
-    getcwd(path, MAX_BUF);
+	getcwd(path, MAX_BUF);
 	
 	// Criar pasta 'player_data'
 	mkdir("player_data");
@@ -30,12 +30,6 @@ void SaveGame(char nickname[], int life, char inventory[])
 	fprintf(fptr,"%s,%d,%s", nickname, life, inventory);
 	fclose(fptr);
 	printf("O jogo foi salvo com sucesso!");
-}
-
-int teste()
-{
-	int valor = 4;
-	return valor;
 }
 
 #endif
