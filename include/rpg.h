@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 void SaveGame(char nickname[], int life, char inventory[])
 {	
@@ -75,6 +76,25 @@ int Attack(int itemId)
         default:
             return 0;
     }
+}
+
+void Dialogue(char text[], int seconds)
+{   
+    // Adicionar delay de x segundos
+    sleep(seconds);
+    // Mostrar o texto
+    printf("%s", text);
+    
+    // Só continuar quando Enter for pressionado
+    printf("\n\n[Enter para continuar...]");
+    char enter = 0;
+    while (enter != '\r' && enter != '\n')
+    {
+        enter = getchar();
+    }
+    
+    // Limpar console
+    system("clear");
 }
 
 #endif
