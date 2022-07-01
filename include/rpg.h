@@ -155,4 +155,47 @@ void Menu()
     	}
 }
 
+void arrowHere(int realPosition, int arrowPosition)
+{
+	if (realPosition == arrowPosition) {
+		printf("X  ");
+	}
+	else {
+		printf("   ");
+	}
+}
+
+void Menu2()
+{
+	system("clear");
+  	int position = 1, keyPressed = 0;
+    
+  	#define MAX 4
+  	#define MIN 1
+    
+  	while (keyPressed != 13)
+  	{
+		system("clear");
+	    	// Mostrando menu
+	    	printf("======[MENU]======\n");
+	    	arrowHere(1, position); printf("Novo jogo\n");
+	    	arrowHere(2, position); printf("Carregar jogo\n");
+	    	arrowHere(3, position); printf("Créditos\n");
+	    	arrowHere(4, position); printf("Sair\n");
+	    	printf("==================\n");
+
+	    	keyPressed = getchar();
+
+	    	if (keyPressed == 80 && position != MAX) {
+			position++;
+	    	} else if (keyPressed == 72 && position != MIN) {
+			position--;
+	    	} else {
+			position = position;
+	    	}
+	}
+	printf("selected %d", position);
+  	getchar();
+}
+
 #endif
