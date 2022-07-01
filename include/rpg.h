@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <conio.h>
 
 void SaveGame(char nickname[], int life, char inventory[])
 {	
