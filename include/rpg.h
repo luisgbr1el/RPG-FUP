@@ -106,68 +106,19 @@ void Dialogue(char text[], int seconds)
 	system("clear");
 }
 
-void Menu()
-{
-    	int choose;
-    
-	// Mostrando menu
-    	system("clear");
-	printf("======[MENU]======");
-	printf("\n1 - Novo jogo");
-	printf("\n2 - Carregar jogo");
-	printf("\n3 - Créditos");
-    	printf("\n4 - Sair");
-    	printf("\n=================\n");
-    
-    	printf("\n\nEscolha uma opção: ");
-    	scanf("%d", &choose);
-    
-    	// Se a opção for inválida, continuar no menu
-    	while (choose > 4 || choose < 1)
-    	{	
-		system("clear");
-		printf("======[MENU]======");
-		printf("\n1 - Novo jogo");
-		printf("\n2 - Carregar jogo");
-		printf("\n3 - Créditos");
-		printf("\n4 - Sair");
-		printf("\n=================\n");
-        
-		printf("\n\nEscolha uma opção: ");
-		scanf("%d", &choose);
-    	}
-    
-    	// Se a opção for válida, executar as funções necessárias
-	switch (choose)
-    	{
-		case 1:
-		    printf("\nNovo jogo será criado.");
-		    break;
-		case 2:
-		    printf("\nJogo será carregado.");
-		    break;
-		case 3:
-		    printf("\nOs créditos serão mostrados.");
-		    break;
-		case 4:
-		    printf("\nO programa será encerrado...");
-		    break;
-    	}
-}
-
 void arrowHere(int realPosition, int arrowPosition)
 {
 	if (realPosition == arrowPosition) {
-		printf("X  ");
+		printf("\t\t\t-> ");
 	}
 	else {
-		printf("   ");
+		printf("\t\t\t   ");
 	}
 }
 
-void Menu2()
+void Menu()
 {
-	system("clear");
+	system("cls");
   	int position = 1, keyPressed = 0;
     
   	#define MAX 4
@@ -175,17 +126,17 @@ void Menu2()
     
   	while (keyPressed != 13)
   	{
-		system("clear");
+		system("cls");
 	    	// Mostrando menu
-	    	printf("======[MENU]======\n");
-	    	arrowHere(1, position); printf("Novo jogo\n");
-	    	arrowHere(2, position); printf("Carregar jogo\n");
-	    	arrowHere(3, position); printf("Créditos\n");
-	    	arrowHere(4, position); printf("Sair\n");
-	    	printf("==================\n");
+	    	printf("\t\t\t======[MENU]======\n");
+	    	arrowHere(1, position); printf("NOVO JOGO\n");
+	    	arrowHere(2, position); printf("CARREGAR JOGO\n");
+	    	arrowHere(3, position); printf("CRÉDITOS\n");
+	    	arrowHere(4, position); printf("SAIR\n");
+	    	printf("\t\t\t==================\n");
 
-	    	keyPressed = getchar();
-
+	    	keyPressed = getch();
+			
 	    	if (keyPressed == 80 && position != MAX) {
 			position++;
 	    	} else if (keyPressed == 72 && position != MIN) {
@@ -194,8 +145,24 @@ void Menu2()
 			position = position;
 	    	}
 	}
-	printf("selected %d", position);
-  	getchar();
+	
+	switch (position) {
+		case 1:
+			system("cls");
+			Dialogue("Será criado um novo jogo.", 0);
+			break;
+		case 2:
+			system("cls");
+			Dialogue("Será carregado o jogo salvo.", 0);
+			break;
+		case 3:
+			system("cls");
+			printf("Serão mostrados os créditos.");
+			break;
+		case 4:
+			system("cls");
+			break;
+	}
 }
 
 #endif
