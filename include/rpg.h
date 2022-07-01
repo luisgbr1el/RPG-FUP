@@ -80,10 +80,19 @@ int Attack(int itemId)
 
 void Dialogue(char text[], int seconds)
 {   
+	system("clear");
+	int x; double y;
 	// Adicionar delay de x segundos
 	sleep(seconds);
+    
     	// Mostrar o texto
-	printf("%s", text);
+    	for(x=0; text[x]!=NULL; x++)
+    	{
+		printf("%c",text[x]);
+		for(y=0; y<=8888888; y++)
+		{
+		}
+    	}
     
 	// Só continuar quando Enter for pressionado
 	printf("\n\n[Enter para continuar...]");
