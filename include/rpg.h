@@ -79,13 +79,30 @@ int Attack(int itemId)
     	}
 }
 
-void Dialogue(char text[], int seconds)
+void Dialogue(char text[], char color[], int seconds)
 {   
-	system("clear");
+	system("cls");
 	int x; double y;
 	// Adicionar delay de x segundos
 	sleep(seconds);
-    
+	 
+	if (color == "black") {
+		printf("\033[0;30m");
+	} else if (color == "red") {
+		printf("\033[0;31m");
+	} else if (color == "green") {
+		printf("\033[0;32m");
+	} else if (color == "yellow") {
+		printf("\033[0;33m");
+	} else if (color == "blue") {
+		printf("\033[0;34m");
+	} else if (color == "purple") {
+		printf("\033[0;35m");
+	} else if (color == "cyan") {
+		printf("\033[0;36m");
+	} else if (color == "white") {
+		printf("\033[0;37m");
+	}
     	// Mostrar o texto
     	for(x=0; text[x]!=NULL; x++)
     	{
@@ -104,7 +121,7 @@ void Dialogue(char text[], int seconds)
 	}
     
 	// Limpar console
-	system("clear");
+	system("cls");
 }
 
 void arrowHere(int realPosition, int arrowPosition)
@@ -150,15 +167,15 @@ void Menu()
 	switch (position) {
 		case 1:
 			system("cls");
-			Dialogue("Será criado um novo jogo.", 0);
+			Dialogue("\t\t\tSerá criado um novo jogo.", "green", 0);
 			break;
 		case 2:
 			system("cls");
-			Dialogue("Será carregado o jogo salvo.", 0);
+			Dialogue("\t\t\tSerá carregado o jogo salvo.", "blue", 0);
 			break;
 		case 3:
 			system("cls");
-			printf("Serão mostrados os créditos.");
+			printf("\t\t\tSerão mostrados os créditos.", "white", 0);
 			break;
 		case 4:
 			system("cls");
