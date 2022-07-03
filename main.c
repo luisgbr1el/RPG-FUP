@@ -18,7 +18,7 @@ int main()
 	// ----
 	
 	// Exemplo de uso 'Dialogue()':
-	Dialogue("Hello World!", 5);
+	Dialogue("Hello World!", "red", 5);
 	// ----
 	
 	return 0;
