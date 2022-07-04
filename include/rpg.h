@@ -175,7 +175,7 @@ void Menu()
 			break;
 		case 3:
 			system("cls");
-			printf("\t\t\tSerão mostrados os créditos.", "white", 0);
+			Dialogue("\t\t\tSerão mostrados os créditos.", "white", 0);
 			break;
 		case 4:
 			system("cls");
