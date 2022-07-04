@@ -124,7 +124,7 @@ void Dialogue(char text[], char color[], int seconds)
 	system("cls");
 }
 
-void arrowHere(int realPosition, int arrowPosition)
+void ArrowHere(int realPosition, int arrowPosition)
 {
 	if (realPosition == arrowPosition) {
 		printf("\t\t\t-> ");
@@ -147,10 +147,10 @@ void Menu()
 		system("cls");
 	    	// Mostrando menu
 	    	printf("\t\t\t======[MENU]======\n");
-	    	arrowHere(1, position); printf("NOVO JOGO\n");
-	    	arrowHere(2, position); printf("CARREGAR JOGO\n");
-	    	arrowHere(3, position); printf("CRÉDITOS\n");
-	    	arrowHere(4, position); printf("SAIR\n");
+	    	ArrowHere(1, position); printf("NOVO JOGO\n");
+	    	ArrowHere(2, position); printf("CARREGAR JOGO\n");
+	    	ArrowHere(3, position); printf("CRÉDITOS\n");
+	    	ArrowHere(4, position); printf("SAIR\n");
 	    	printf("\t\t\t==================\n");
 
 	    	keyPressed = getch();
