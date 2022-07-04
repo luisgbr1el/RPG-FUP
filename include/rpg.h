@@ -113,7 +113,7 @@ void Dialogue(char text[], char color[], int seconds)
     	}
     
 	// Só continuar quando Enter for pressionado
-	printf("\n\n[Enter para continuar...]");
+	printf("\n\n\e[1m[Enter para continuar...]\e[m");
 	char enter = 0;
 	while (enter != '\r' && enter != '\n')
 	{
