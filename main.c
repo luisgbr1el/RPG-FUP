@@ -21,5 +21,9 @@ int main()
 	Dialogue("Hello World!", "red", 5);
 	// ----
 	
+	// Mostrando 'Menu()':
+	//Menu();
+	// ----
+	
 	return 0;
 }
