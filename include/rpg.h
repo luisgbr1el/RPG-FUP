@@ -44,29 +44,29 @@ int Attack(int itemId)
 {
 	int damage;
     
-    	// Assumindo que 0 = nenhuma arma, 1 = arco, 2 = espada, default = inaptidão, tal que:
-    	// - 0 pode causar de 1 a 10 de dano;
-    	// - 1 pode causar de 10 a 25 de dano;
+    	// Assumindo que 0 = revólver, 1 = escopeta, 3 = facão, default = inaptidão, tal que:
+    	// - 0 pode causar de 10 a 20 de dano;
+    	// - 1 pode causar de 20 a 40 de dano;
     	// - 2 pode causar de 25 a 35 de dano;
     	// - default não causa dano.
     
     	switch (itemId)
     	{
-		// Se o jogador não possuir nenhuma arma
+		// Se o jogador possuir um revólver
 		case 0:
-		    // Sortear número entre 1 e 10
-		    damage = rand() % 10 + 1;
+		    // Sortear número entre 10 e 20
+		    damage = rand() % 10 + 11;
 		    // Retornar o dano sorteado
 		    return damage;
 
-		// Se o jogador possuir um arco    
+		// Se o jogador possuir uma escopeta  
 		case 1:
-		    // Sortear número entre 10 e 25
-		    damage = rand() % 10 + 16;
+		    // Sortear número entre 20 e 40
+		    damage = rand() % 20 + 21;
 		    // Retornar o dano sorteado
 		    return damage;
 
-		// Se o jogador possuir uma espada   
+		// Se o jogador possuir um facão  
 		case 2:
 		    // Sortear número entre 25 e 35
 		    damage = rand() % 10 + 26;
