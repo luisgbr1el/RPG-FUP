@@ -12,5 +12,6 @@ Para facilitar a execução do projeto, foi criada uma biblioteca chamada [`rpg.
 |`Dialogue()`|Função que "printa" textos da forma clássica de RPG's (letra a letra).|
 |`ArrowHere()`|Função para mostrar a seleção do jogador no Menu do jogo.|
 |`Menu()`|Função que mostra o Menu do jogo para o jogador.|
+|`Enemy()`|Função que declara, dependendo do bioma, a vida do inimigo.|
 
 
