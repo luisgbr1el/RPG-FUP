@@ -13,5 +13,6 @@ Para facilitar a execução do projeto, foi criada uma biblioteca chamada [`rpg.
 |`ArrowHere()`|Função para mostrar a seleção do jogador no Menu do jogo.|
 |`Menu()`|Função que mostra o Menu do jogo para o jogador.|
 |`Enemy()`|Função que declara, dependendo do bioma, a vida do inimigo.|
+|`Battle()`|Função que controla a mecânica das batalhas.|
 
 
