@@ -183,4 +183,24 @@ void Menu()
 	}
 }
 
+int Enemy(int biome)
+{
+    
+	switch (biome)
+    	{
+        	case 0:
+            		return 50;
+        	case 1:
+            		return 100;
+        	case 2:
+            		return 150;
+        	case 3:
+            		return 250;
+        	case 4:
+            		return 300;
+        	default:
+            		return 0;
+    	}
+}
+
 #endif
