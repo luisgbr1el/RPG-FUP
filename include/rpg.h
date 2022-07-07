@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <conio.h>
 
-void SaveGame(char nickname[], int life, char inventory[])
+void SaveGame(char nickname[], int life, int gun, int coins)
 {	
 	// Pegar diretório atual
 	char path[MAX_BUF];
@@ -33,7 +33,7 @@ void SaveGame(char nickname[], int life, char inventory[])
 	else
 	{
 		// Salvando arquivo
-		fprintf(fptr,"%s,%d,%s", nickname, life, inventory);
+		fprintf(fptr,"%s,%d,%d,%d", nickname, life, gun, coins);
 		fclose(fptr);
 		printf("O jogo foi salvo com sucesso!");
 	}
