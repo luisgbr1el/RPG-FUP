@@ -203,4 +203,46 @@ int Enemy(int biome)
     	}
 }
 
+void Battle(int damageAttack, int enemyLife)
+{
+    
+	while (enemyLife > 0)
+    	{
+  		int position = 1, keyPressed = 0;
+    
+  		#define MAX 4
+  		#define MIN 1
+    
+  		while (keyPressed != 10)
+  		{
+			system("cls");
+	    		// Mostrando menu
+	    		printf("\n\t\t\tInimigo: %d PV\n", enemyLife);
+	    		printf("\n\n\t\t\t======[MENU]======\n");
+	    		ArrowHere(1, position); printf("ATACAR\n");
+	    		printf("\t\t\t==================\n");
+
+	    		keyPressed = getch();
+			
+	    		if (keyPressed == 80 && position != MAX) {
+				position++;
+	    		} else if (keyPressed == 72 && position != MIN) {
+				position--;
+	    		} else {
+				position = position;
+	    		}
+		}
+	
+		switch (position) {
+			case 1:
+				system("cls");
+				enemyLife -= damageAttack;
+      				printf("\n\n\n\n\t\t\t[%d DE DANO!]", damageAttack);
+		}
+        
+    	}
+	system("cls");
+    	printf("\n\t\t\tVocê matou o inimigo!");
+}
+
 #endif
