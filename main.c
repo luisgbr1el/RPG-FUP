@@ -1,29 +1,33 @@
 #include "include/rpg.h"
 #include <stdlib.h>
+#include <locale.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <time.h>
 
 int main()
 {
-	// Exemplo de uso 'SaveGame()':
-	SaveGame("Astronildo", 100, "vazio");
-	// ----
-	
-	// Exemplo de uso 'Attack()':
 	srand(time(NULL));
-	int life = 1000;
+	setlocale(LC_ALL, "Portuguese");
+//	
+	struct personagem p;
+	struct enemy e;
+	
+	LoadGame(&p);
+//	strcpy(p.nickname, "salve");
+//	p.life = 114;
+//	p.gun = 2;
 
-	// Simulando uma sequência de 10 ataques
-	for (int i = 0; i < 10; i++) {
-		printf("\n%d", life -= Attack(2));
-	}
+//	p.coins = 4812;
+//	
+//	printf("%s", p.nickname);
+	// Exemplo de uso 'SaveGame()':
+	//SaveGame(&p);
 	// ----
+	system("cls");
+	Enemy(4, &e);
 	
-	// Exemplo de uso 'Dialogue()':
-	Dialogue("Hello World!", "red", 5);
-	// ----
-	
-	// Mostrando 'Menu()':
-	//Menu();
-	// ----
+	Battle(Attack(&p), &p, &e);
 	
 	return 0;
 }

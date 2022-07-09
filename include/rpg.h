@@ -9,7 +9,22 @@
 #include <unistd.h>
 #include <conio.h>
 
-void SaveGame(char nickname[], int life, int gun, int coins)
+struct personagem {
+	char nickname[15];
+	int life;
+	int gun;
+	int coins;
+}p;
+
+struct enemy {
+	char name[15];
+	int life;
+	int biome;
+	int price;
+	int damage;
+}e;
+
+void SaveGame(struct personagem *p)
 {	
 	// Pegar diretÃ³rio atual
 	char path[MAX_BUF];
@@ -33,14 +48,47 @@ void SaveGame(char nickname[], int life, int gun, int coins)
 	else
 	{
 		// Salvando arquivo
-		fprintf(fptr,"%s,%d,%d,%d", nickname, life, gun, coins);
+		fprintf(fptr,"%s\n", p->nickname);
+		fprintf(fptr,"%d\n", p->life);
+		fprintf(fptr,"%d\n", p->gun);
+		fprintf(fptr,"%d", p->coins);
 		fclose(fptr);
 		printf("O jogo foi salvo com sucesso!");
 	}
 
 }
 
-int Attack(int itemId)
+void LoadGame(struct personagem *p)
+{	
+	char path[MAX_BUF];
+	getcwd(path, MAX_BUF);
+	// Declarando arquivo
+	FILE *fptr;
+	// Concatenando diretÃ³rio atual com o nome do arquivo que vai ser criado
+	strcat(path, "\\player_data\\player.txt");
+	// Criando arquivo
+	fptr = fopen(path,"r");
+	
+	// Se o diretÃ³rio for nulo...
+	if(fptr == NULL)
+	{
+		printf("Erro ao carregar.");      
+	}
+	// SenÃ£o...
+	else
+	{
+		// Salvando arquivo
+		fscanf(fptr,"%s", p->nickname);
+		fscanf(fptr,"%d", &p->life);
+		fscanf(fptr,"%d", &p->gun);
+		fscanf(fptr,"%d", &p->coins);
+		fclose(fptr);
+		printf("%s,\n%d,\n%d,\n%d", p->nickname, p->life, p->gun, p->coins);
+	}
+
+}
+
+int Attack(struct personagem *p)
 {
 	int damage;
     
@@ -50,7 +98,7 @@ int Attack(int itemId)
     	// - 2 pode causar de 25 a 35 de dano;
     	// - default nÃ£o causa dano.
     
-    	switch (itemId)
+    	switch (p->gun)
     	{
 		// Se o jogador possuir um revÃ³lver
 		case 0:
@@ -58,6 +106,7 @@ int Attack(int itemId)
 		    damage = rand() % 10 + 11;
 		    // Retornar o dano sorteado
 		    return damage;
+		    break;
 
 		// Se o jogador possuir uma escopeta  
 		case 1:
@@ -65,14 +114,14 @@ int Attack(int itemId)
 		    damage = rand() % 20 + 21;
 		    // Retornar o dano sorteado
 		    return damage;
-
+			break;
 		// Se o jogador possuir um facÃ£o  
 		case 2:
 		    // Sortear nÃºmero entre 25 e 35
 		    damage = rand() % 10 + 26;
 		    // Retornar o dano sorteado
 		    return damage;
-
+			break;
 		// Se o jogador nÃ£o estiver apto a realizar um ataque   
 		default:
 		    return 0;
@@ -113,7 +162,7 @@ void Dialogue(char text[], char color[], int seconds)
     	}
     
 	// SÃ³ continuar quando Enter for pressionado
-	printf("\n\n\e[1m[Enter para continuar...]\e[m");
+	printf("\n\n\t\t\t\e[1m[Enter para continuar...]\e[m");
 	char enter = 0;
 	while (enter != '\r' && enter != '\n')
 	{
@@ -149,7 +198,7 @@ void Menu()
 	    	printf("\t\t\t======[MENU]======\n");
 	    	ArrowHere(1, position); printf("NOVO JOGO\n");
 	    	ArrowHere(2, position); printf("CARREGAR JOGO\n");
-	    	ArrowHere(3, position); printf("CRÃ‰DITOS\n");
+	    	ArrowHere(3, position); printf("CRÉDITOS\n");
 	    	ArrowHere(4, position); printf("SAIR\n");
 	    	printf("\t\t\t==================\n");
 
@@ -167,15 +216,15 @@ void Menu()
 	switch (position) {
 		case 1:
 			system("cls");
-			Dialogue("\t\t\tSerÃ¡ criado um novo jogo.", "green", 0);
+			Dialogue("\t\t\tSerá criado um novo jogo.", "green", 0);
 			break;
 		case 2:
 			system("cls");
-			Dialogue("\t\t\tSerÃ¡ carregado o jogo salvo.", "blue", 0);
+			Dialogue("\t\t\tSerá carregado o jogo salvo.", "blue", 0);
 			break;
 		case 3:
 			system("cls");
-			Dialogue("\t\t\tSerÃ£o mostrados os crÃ©ditos.", "white", 0);
+			Dialogue("\t\t\tSerão mostrados os créditos.", "white", 0);
 			break;
 		case 4:
 			system("cls");
@@ -183,41 +232,56 @@ void Menu()
 	}
 }
 
-int Enemy(int biome)
+int Enemy(int biome, struct enemy *e)
 {
-    
+
 	switch (biome)
     	{
         	case 0:
-            		return 50;
+        		strcpy(e->name, "Javaré");
+            	e->life = 50;
+            	e->damage = 20;
+            	break;
         	case 1:
-            		return 100;
+        		strcpy(e->name, "Bruno");
+            	e->life = 100;
+            	e->damage = 30;
+            	break;
         	case 2:
-            		return 150;
+        		strcpy(e->name, "Pedro");
+            	e->life = 150;
+            	e->damage = 40;
+            	break;
         	case 3:
-            		return 250;
+        		strcpy(e->name, "Carlos Informática");
+            	e->life = 200;
+            	e->damage = 60;
+            	break;
         	case 4:
-            		return 300;
+        		strcpy(e->name, "Crateús Cópias");
+            	e->life = 300;
+            	e->damage = 70;
+            	break;
         	default:
             		return 0;
     	}
 }
 
-void Battle(int damageAttack, int enemyLife)
+void Battle(int damageAttack, struct personagem *p, struct enemy *e)
 {
     
-	while (enemyLife > 0)
+	while (e->life > 0)
     	{
   		int position = 1, keyPressed = 0;
     
   		#define MAX 4
   		#define MIN 1
     
-  		while (keyPressed != 10)
+  		while (keyPressed != 13)
   		{
-			system("cls");
 	    		// Mostrando menu
-	    		printf("\n\t\t\tInimigo: %d PV\n", enemyLife);
+	    		printf("\n\t\t\tInimigo: %d PV\n", e->life);
+	    		printf("\t\t\tVida do jogador: %d PV\n", p->life);
 	    		printf("\n\n\t\t\t======[MENU]======\n");
 	    		ArrowHere(1, position); printf("ATACAR\n");
 	    		printf("\t\t\t==================\n");
@@ -236,13 +300,18 @@ void Battle(int damageAttack, int enemyLife)
 		switch (position) {
 			case 1:
 				system("cls");
-				enemyLife -= damageAttack;
-      				printf("\n\n\n\n\t\t\t[%d DE DANO!]", damageAttack);
+				e->life -= damageAttack;
+				p->life -= e->damage;
+      				printf("\n\t\t\t[%d DE DANO!]", damageAttack);
+      				damageAttack = Attack(&p);
+      			break;
+      				
+      			
 		}
         
     	}
 	system("cls");
-    	printf("\n\t\t\tVocÃª matou o inimigo!");
+    	printf("\n\t\t\tVocê matou o inimigo!");
 }
 
 #endif
