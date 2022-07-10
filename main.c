@@ -31,5 +31,7 @@ int main()
 	
 	//Battle(Attack(&p), &p, &e);
 	
+	History(&p);
+	
 	return 0;
 }

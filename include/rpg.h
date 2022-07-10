@@ -25,6 +25,51 @@ typedef struct enemy {
 	int damage;
 } enemy;
 
+void Dialogue(char text[], char color[], int seconds)
+{   
+	system("cls");
+	int x; double y;
+	// Adicionar delay de x segundos
+	sleep(seconds);
+	 
+	if (color == "black") {
+		printf("\n\033[0;30m");
+	} else if (color == "red") {
+		printf("\n\033[0;31m");
+	} else if (color == "green") {
+		printf("\n\033[0;32m");
+	} else if (color == "yellow") {
+		printf("\n\033[0;33m");
+	} else if (color == "blue") {
+		printf("\n\033[0;34m");
+	} else if (color == "purple") {
+		printf("\n\033[0;35m");
+	} else if (color == "cyan") {
+		printf("\n\033[0;36m");
+	} else if (color == "white") {
+		printf("\n\033[0;37m");
+	}
+    	// Mostrar o texto
+    	for(x=0; text[x]!=NULL; x++)
+    	{
+		printf("%c",text[x]);
+		for(y=0; y<=4800000; y++)
+		{
+		}
+    	}
+    
+	// SÃ³ continuar quando Enter for pressionado
+	printf("\n\n\t\t\t\e[1m[Enter para continuar...]\e[m \033[m");
+	char enter = 0;
+	while (enter != '\r' && enter != '\n')
+	{
+		enter = getchar();
+	}
+    
+	// Limpar console
+	system("cls");
+}
+
 void SaveGame(personagem *p)
 {	
 	// Pegar diretÃ³rio atual
@@ -43,7 +88,7 @@ void SaveGame(personagem *p)
 	// Se o diretÃ³rio for nulo...
 	if(fptr == NULL)
 	{
-		printf("Erro ao salvar.");      
+		printf("\n\t\t\tErro ao salvar.");      
 	}
 	// SenÃ£o...
 	else
@@ -55,7 +100,7 @@ void SaveGame(personagem *p)
 		fprintf(fptr,"%d\n", p->coins);
 		fprintf(fptr,"%d", p->level);
 		fclose(fptr);
-		printf("O jogo foi salvo com sucesso!");
+		Dialogue("\t\t\tO jogo foi salvo com sucesso!", "green", 0);
 	}
 
 }
@@ -74,7 +119,7 @@ void LoadGame(personagem *p)
 	// Se o diretÃ³rio for nulo...
 	if(fptr == NULL)
 	{
-		printf("Erro ao carregar.");      
+		printf("\t\t\tErro ao carregar.");      
 	}
 	// SenÃ£o...
 	else
@@ -86,9 +131,51 @@ void LoadGame(personagem *p)
 		fscanf(fptr,"%d", &p->coins);
 		fscanf(fptr,"%d", &p->level);
 		fclose(fptr);
-		printf("%s,\n%d,\n%d,\n%d", p->nickname, p->life, p->gun, p->coins);
+		
+		Loading(2);
+		History(&p);
 	}
 
+}
+
+int Enemy(int biome, enemy *e)
+{
+
+	switch (biome)
+    	{
+        	case 0:
+        		strcpy(e->name, "Javaré");
+        		e->price = 20;
+            	e->life = 50;
+            	e->damage = 20;
+            	break;
+        	case 1:
+        		strcpy(e->name, "Bruno");
+        		e->price = 30;
+            	e->life = 100;
+            	e->damage = 30;
+            	break;
+        	case 2:
+        		strcpy(e->name, "Pedro");
+        		e->price = 40;
+            	e->life = 150;
+            	e->damage = 40;
+            	break;
+        	case 3:
+        		strcpy(e->name, "Carlos Informática");
+        		e->price = 60;
+            	e->life = 200;
+            	e->damage = 60;
+            	break;
+        	case 4:
+        		strcpy(e->name, "Crateús Cópias");
+        		e->price = 70;
+            	e->life = 300;
+            	e->damage = 70;
+            	break;
+        	default:
+            	return 0;
+    	}
 }
 
 int Attack(personagem *p)
@@ -130,49 +217,15 @@ int Attack(personagem *p)
     	}
 }
 
-void Dialogue(char text[], char color[], int seconds)
-{   
-	system("cls");
-	int x; double y;
-	// Adicionar delay de x segundos
-	sleep(seconds);
-	 
-	if (color == "black") {
-		printf("\033[0;30m");
-	} else if (color == "red") {
-		printf("\033[0;31m");
-	} else if (color == "green") {
-		printf("\033[0;32m");
-	} else if (color == "yellow") {
-		printf("\033[0;33m");
-	} else if (color == "blue") {
-		printf("\033[0;34m");
-	} else if (color == "purple") {
-		printf("\033[0;35m");
-	} else if (color == "cyan") {
-		printf("\033[0;36m");
-	} else if (color == "white") {
-		printf("\033[0;37m");
+void Death(personagem *p) {
+	
+	if (p->level == 1) {
+		Dialogue("\n\t\t\tVocê morreu antes mesmo de\n\t\t\tcomeçar a aventura...", "red", 1);
+		Menu(p);
+	} else if (p->level == 2) {
+		Dialogue("\t\t\ta", "red", 2);
+		Menu(p);
 	}
-    	// Mostrar o texto
-    	for(x=0; text[x]!=NULL; x++)
-    	{
-		printf("%c",text[x]);
-		for(y=0; y<=8888888; y++)
-		{
-		}
-    	}
-    
-	// SÃ³ continuar quando Enter for pressionado
-	printf("\n\n\t\t\t\e[1m[Enter para continuar...]\e[m");
-	char enter = 0;
-	while (enter != '\r' && enter != '\n')
-	{
-		enter = getchar();
-	}
-    
-	// Limpar console
-	system("cls");
 }
 
 void ArrowHere(int realPosition, int arrowPosition)
@@ -218,12 +271,11 @@ void Menu(personagem *p)
 	switch (position) {
 		case 1:
 			system("cls");
-			//Dialogue("\t\t\tSerá criado um novo jogo.", "green", 0);
 			History(*p);
 			break;
 		case 2:
 			system("cls");
-			Dialogue("\t\t\tSerá carregado o jogo salvo.", "blue", 0);
+			LoadGame(&p);
 			break;
 		case 3:
 			system("cls");
@@ -235,46 +287,11 @@ void Menu(personagem *p)
 	}
 }
 
-int Enemy(int biome, enemy *e)
-{
-
-	switch (biome)
-    	{
-        	case 0:
-        		strcpy(e->name, "Javaré");
-            	e->life = 50;
-            	e->damage = 20;
-            	break;
-        	case 1:
-        		strcpy(e->name, "Bruno");
-            	e->life = 100;
-            	e->damage = 30;
-            	break;
-        	case 2:
-        		strcpy(e->name, "Pedro");
-            	e->life = 150;
-            	e->damage = 40;
-            	break;
-        	case 3:
-        		strcpy(e->name, "Carlos Informática");
-            	e->life = 200;
-            	e->damage = 60;
-            	break;
-        	case 4:
-        		strcpy(e->name, "Crateús Cópias");
-            	e->life = 300;
-            	e->damage = 70;
-            	break;
-        	default:
-            		return 0;
-    	}
-}
-
 void Battle(int damageAttack, personagem *p, enemy *e)
 {
     
 	while (e->life > 0)
-    	{
+    {
   		int position = 1, keyPressed = 0;
     
   		#define MAX 4
@@ -306,30 +323,42 @@ void Battle(int damageAttack, personagem *p, enemy *e)
 				e->life -= damageAttack;
 				
 				p->life -= e->damage;
-      				printf("\n\t\t\t[%d DE DANO!]", damageAttack);
-      				damageAttack = Attack(p);
+				printf("\n\t\t\t[%d DE DANO!]", damageAttack);
+      			damageAttack = Attack(p);
       			
-				  break;			
+      			if (p->life <= 0) {
+      				Death(p);
+				}
       			
+				break;				
 		}
         
-    	}
+    }
 	system("cls");
-    	printf("\n\t\t\tVocê matou o inimigo!");
+	Dialogue("\t\t\tVocê matou o inimigo!", "green", 0);
+	printf("\t\t\t[+%d MOEDAS]", e->price);
+	p->coins += e->price;
+	Sleep(1000);
 }
-void Loading(int time){
+
+void Loading(int time)
+{
     system("cls");
+    printf("\n");
 	int i;
-    for (i = 0; i < time; i++) {
+    for (i = 0; i < time; i++) 
+	{
         int j;
-		printf("Carregando ");
-        for ( j = 0; j < 3; j++) {
+		printf("\t\t\tCarregando save ");
+        for ( j = 0; j < 3; j++)
+		{
             printf(".");
             Sleep(200);
         }
         printf("\r");
         int k;
-        for (k = k; k < 3; k++) {
+        for (k = k; k < 3; k++)
+		{
             printf(" "); // apaga a linha anterior
         }
         printf("\r");
@@ -337,33 +366,50 @@ void Loading(int time){
 }
 
 void History(personagem *p){
+	int tecla;
 	
-	while(1){
+	while (1)
+	{
 		// o level determina a parte da história que será contada
 		// 0 - inicio do jogo
 		
-		switch(p->level){
-		case 0:
-			Dialogue("\t\t\tPara iniciar, digite seu nome:", "green", 0);
-			printf("\033[0;32m \t\t\t\e[1mPara iniciar, digite seu nome: ");
-			gets(p->nickname) ;
+		switch (p->level)
+		{
+			case 0:
+				system("cls");
+				//Dialogue("\t\t\tPara iniciar, digite seu nome: ", "green", 0);
+				printf("\n\t\t\tPara iniciar, digite seu nome: ");
+				gets(p->nickname);
+					
+				Dialogue("\t\t\t Você é um cara que sua filha fica Doente ", "cyan", 0);
+				Dialogue("\t\t\tVocê decide então partir em uma jornada em busca de uma cura para ela", "cyan", 0);
+				Dialogue("\t\t\tAssim, armado com um velho facão", "cyan", 0);
 				
-			Dialogue("\t\t\t Você é um cara que sua filha fica Doente ", "green", 0);
-			Dialogue("\t\t\tVocê decide então partir em uma jornada em busca de uma cura para ela", "green", 0);
-			Dialogue("\t\t\tAssim, armado com um velho facão", "green", 0);
-			
-			Dialogue("\t\t\tVoce Adquiriu facão!!!", "blue", 0);
-			p->gun = 0;
-			p->life = 500;
-			p->coins = 10;
-			p->level = 1;
-			SaveGame(p);
-		break;
-		case 1:
-			Dialogue("\t\t\tSegunda parte", "green", 0);
-		break;
+				Dialogue("\t\t\tVoce Adquiriu facão!!!", "blue", 0);
+				
+				printf("\t\t\tDeseja salvar o jogo? (s/n)");
+				tecla = getch();
+				
+				p->gun = 0;
+				p->life = 500;
+				p->coins = 10;
+				p->level = 1;
+				
+				
+				if (tecla == 83 || tecla == 115) {
+					SaveGame(p);
+				} else if (tecla == 78 || tecla == 110) {
 	
-	}
+				}
+				enemy e;
+				Enemy(0, &e);
+				Battle(Attack(p), p, &e);
+				break;
+			case 1:
+				Dialogue("\t\t\tSegunda parte", "green", 0);
+				break;
+	
+		}
 	}
 }
 
