@@ -12,8 +12,11 @@ int main()
 //	
 	personagem p;
 	enemy e;
+//	p.coins = 500;
 	
-	Menu(&p);
+	
+	StoreMenu(&p);
+	//Menu(&p);
 	
 	//LoadGame(&p);
 //	strcpy(p.nickname, "salve");
@@ -31,7 +34,7 @@ int main()
 	
 	//Battle(Attack(&p), &p, &e);
 	
-	History(&p);
+	//History(&p);
 	
 	return 0;
 }

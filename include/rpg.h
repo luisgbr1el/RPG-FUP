@@ -15,6 +15,7 @@ typedef struct personagem {
 	int gun;
 	int coins;
 	int level;
+	int medicine;
 } personagem;
 
 typedef struct enemy {
@@ -50,7 +51,7 @@ void Dialogue(char text[], char color[], int seconds)
 		printf("\n\033[0;37m");
 	}
     	// Mostrar o texto
-    	for(x=0; text[x]!=NULL; x++)
+    	for(x=0; text[x] != NULL; x++)
     	{
 		printf("%c",text[x]);
 		for(y=0; y<=4800000; y++)
@@ -98,7 +99,8 @@ void SaveGame(personagem *p)
 		fprintf(fptr,"%d\n", p->life);
 		fprintf(fptr,"%d\n", p->gun);
 		fprintf(fptr,"%d\n", p->coins);
-		fprintf(fptr,"%d", p->level);
+		fprintf(fptr,"%d\n", p->level);
+		fprintf(fptr,"%d", p->medicine);
 		fclose(fptr);
 		Dialogue("\t\t\tO jogo foi salvo com sucesso!", "green", 0);
 	}
@@ -130,6 +132,7 @@ void LoadGame(personagem *p)
 		fscanf(fptr,"%d", &p->gun);
 		fscanf(fptr,"%d", &p->coins);
 		fscanf(fptr,"%d", &p->level);
+		fscanf(fptr,"%d", &p->medicine);
 		fclose(fptr);
 		
 		Loading(2);
@@ -410,6 +413,89 @@ void History(personagem *p){
 				break;
 	
 		}
+	}
+}
+
+void StoreMenu(personagem *p){
+	system("cls");
+  	int position = 1, keyPressed = 0;
+    
+  	while (keyPressed != 13)
+  	{
+		system("cls");
+	    	// Mostrando menu
+	    	printf("\t\t\t======[LOJA]======\n");
+	    	printf("\t\t\t    MOEDAS: %d\n  ", p->coins);
+	    	ArrowHere(1, position); printf("100 - REVOLVER\n");
+	    	ArrowHere(2, position); printf("200 - ESCOPETA\n");
+	    	ArrowHere(3, position); printf("050 - REMÉDIO\n");
+	    	ArrowHere(4, position); printf("SAIR\n");
+	    	printf("\t\t\t==================\n");
+
+	    	keyPressed = getch();
+			
+	    	if (keyPressed == 80 && position != MAX) {
+			position++;
+	    	} else if (keyPressed == 72 && position != MIN) {
+			position--;
+	    	} else {
+			position = position;
+	    	}
+	}
+	
+	switch (position) {
+		case 1:
+			system("cls");
+			if(p->gun >= 1){
+				Dialogue("Você já possui essa arma ou outra melhor", "white", 0);
+				StoreMenu(p);
+			}
+			else if(p->coins < 100){
+				Dialogue("Você não possui moedas suficientes!", "white", 0);
+				StoreMenu(p);
+			}
+			else{
+				p->coins -=100;
+				p->gun = 1;
+				Dialogue("\t\t\tVoce Adquiriu um revolver!!!", "blue", 0);
+				StoreMenu(p);
+			}
+			break;
+		case 2:
+			system("cls");
+			if(p->gun >= 2){
+				Dialogue("Você já possui essa arma", "white", 0);
+				StoreMenu(p);
+			}
+			else if(p->coins < 200){
+				Dialogue("Você não possui moedas suficientes!", "white", 0);
+				StoreMenu(p);
+			}
+			else{
+				p->coins -=200;
+				p->gun = 2;
+				Dialogue("\t\t\tVocê Adquiriu uma escopeta!!!", "blue", 0);
+				StoreMenu(p);
+			}
+			break;
+		case 3:
+			system("cls");
+			
+			if(p->coins < 50){
+				Dialogue("Você não possui moedas suficientes!", "white", 0);
+				StoreMenu(p);
+			}
+			else{
+				p->coins -=50;
+				p->medicine +=1;
+				Dialogue("\t\t\tVoce Adquiriu um medicamento!!!", "blue", 0);
+				Dialogue("\t\t\tDurande a batalha você pode usá-lo para recuperar vida!!!", "blue", 0);
+				StoreMenu(p);
+			}
+			break;
+		case 4:
+			system("cls");
+			break;
 	}
 }
 
