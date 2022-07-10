@@ -10,24 +10,26 @@ int main()
 	srand(time(NULL));
 	setlocale(LC_ALL, "Portuguese");
 //	
-	struct personagem p;
-	struct enemy e;
+	personagem p;
+	enemy e;
 	
-	LoadGame(&p);
+	Menu(&p);
+	
+	//LoadGame(&p);
 //	strcpy(p.nickname, "salve");
 //	p.life = 114;
 //	p.gun = 2;
-
+	//Loading(20);
 //	p.coins = 4812;
 //	
 //	printf("%s", p.nickname);
 	// Exemplo de uso 'SaveGame()':
 	//SaveGame(&p);
 	// ----
-	system("cls");
-	Enemy(4, &e);
+	//system("cls");
+	//Enemy(4, &e);
 	
-	Battle(Attack(&p), &p, &e);
+	//Battle(Attack(&p), &p, &e);
 	
 	return 0;
 }

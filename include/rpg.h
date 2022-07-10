@@ -9,22 +9,23 @@
 #include <unistd.h>
 #include <conio.h>
 
-struct personagem {
+typedef struct personagem {
 	char nickname[15];
 	int life;
 	int gun;
 	int coins;
-}p;
+	int level;
+} personagem;
 
-struct enemy {
+typedef struct enemy {
 	char name[15];
 	int life;
 	int biome;
 	int price;
 	int damage;
-}e;
+} enemy;
 
-void SaveGame(struct personagem *p)
+void SaveGame(personagem *p)
 {	
 	// Pegar diretÃ³rio atual
 	char path[MAX_BUF];
@@ -51,14 +52,15 @@ void SaveGame(struct personagem *p)
 		fprintf(fptr,"%s\n", p->nickname);
 		fprintf(fptr,"%d\n", p->life);
 		fprintf(fptr,"%d\n", p->gun);
-		fprintf(fptr,"%d", p->coins);
+		fprintf(fptr,"%d\n", p->coins);
+		fprintf(fptr,"%d", p->level);
 		fclose(fptr);
 		printf("O jogo foi salvo com sucesso!");
 	}
 
 }
 
-void LoadGame(struct personagem *p)
+void LoadGame(personagem *p)
 {	
 	char path[MAX_BUF];
 	getcwd(path, MAX_BUF);
@@ -82,22 +84,22 @@ void LoadGame(struct personagem *p)
 		fscanf(fptr,"%d", &p->life);
 		fscanf(fptr,"%d", &p->gun);
 		fscanf(fptr,"%d", &p->coins);
+		fscanf(fptr,"%d", &p->level);
 		fclose(fptr);
 		printf("%s,\n%d,\n%d,\n%d", p->nickname, p->life, p->gun, p->coins);
 	}
 
 }
 
-int Attack(struct personagem *p)
+int Attack(personagem *p)
 {
 	int damage;
     
-    	// Assumindo que 0 = revÃ³lver, 1 = escopeta, 3 = facÃ£o, default = inaptidÃ£o, tal que:
+    	// Assumindo que 0 = facão, 1 = escopeta, 3 = revolver, default = inaptidÃ£o, tal que:
     	// - 0 pode causar de 10 a 20 de dano;
     	// - 1 pode causar de 20 a 40 de dano;
     	// - 2 pode causar de 25 a 35 de dano;
     	// - default nÃ£o causa dano.
-    
     	switch (p->gun)
     	{
 		// Se o jogador possuir um revÃ³lver
@@ -183,7 +185,7 @@ void ArrowHere(int realPosition, int arrowPosition)
 	}
 }
 
-void Menu()
+void Menu(personagem *p)
 {
 	system("cls");
   	int position = 1, keyPressed = 0;
@@ -216,7 +218,8 @@ void Menu()
 	switch (position) {
 		case 1:
 			system("cls");
-			Dialogue("\t\t\tSerá criado um novo jogo.", "green", 0);
+			//Dialogue("\t\t\tSerá criado um novo jogo.", "green", 0);
+			History(*p);
 			break;
 		case 2:
 			system("cls");
@@ -232,7 +235,7 @@ void Menu()
 	}
 }
 
-int Enemy(int biome, struct enemy *e)
+int Enemy(int biome, enemy *e)
 {
 
 	switch (biome)
@@ -267,7 +270,7 @@ int Enemy(int biome, struct enemy *e)
     	}
 }
 
-void Battle(int damageAttack, struct personagem *p, struct enemy *e)
+void Battle(int damageAttack, personagem *p, enemy *e)
 {
     
 	while (e->life > 0)
@@ -301,17 +304,67 @@ void Battle(int damageAttack, struct personagem *p, struct enemy *e)
 			case 1:
 				system("cls");
 				e->life -= damageAttack;
+				
 				p->life -= e->damage;
       				printf("\n\t\t\t[%d DE DANO!]", damageAttack);
-      				damageAttack = Attack(&p);
-      			break;
-      				
+      				damageAttack = Attack(p);
+      			
+				  break;			
       			
 		}
         
     	}
 	system("cls");
     	printf("\n\t\t\tVocê matou o inimigo!");
+}
+void Loading(int time){
+    system("cls");
+	int i;
+    for (i = 0; i < time; i++) {
+        int j;
+		printf("Carregando ");
+        for ( j = 0; j < 3; j++) {
+            printf(".");
+            Sleep(200);
+        }
+        printf("\r");
+        int k;
+        for (k = k; k < 3; k++) {
+            printf(" "); // apaga a linha anterior
+        }
+        printf("\r");
+    }
+}
+
+void History(personagem *p){
+	
+	while(1){
+		// o level determina a parte da história que será contada
+		// 0 - inicio do jogo
+		
+		switch(p->level){
+		case 0:
+			Dialogue("\t\t\tPara iniciar, digite seu nome:", "green", 0);
+			printf("\033[0;32m \t\t\t\e[1mPara iniciar, digite seu nome: ");
+			gets(p->nickname) ;
+				
+			Dialogue("\t\t\t Você é um cara que sua filha fica Doente ", "green", 0);
+			Dialogue("\t\t\tVocê decide então partir em uma jornada em busca de uma cura para ela", "green", 0);
+			Dialogue("\t\t\tAssim, armado com um velho facão", "green", 0);
+			
+			Dialogue("\t\t\tVoce Adquiriu facão!!!", "blue", 0);
+			p->gun = 0;
+			p->life = 500;
+			p->coins = 10;
+			p->level = 1;
+			SaveGame(p);
+		break;
+		case 1:
+			Dialogue("\t\t\tSegunda parte", "green", 0);
+		break;
+	
+	}
+	}
 }
 
 #endif
