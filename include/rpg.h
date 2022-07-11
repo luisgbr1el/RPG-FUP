@@ -59,7 +59,7 @@ void Dialogue(char text[], char color[], int seconds)
 		}
     	}
     
-	// Só continuar quando Enter for pressionado
+	// SÃ³ continuar quando Enter for pressionado
 	printf("\n\n\t\t\t\e[1m[Enter para continuar...]\e[m \033[m");
 	char enter = 0;
 	while (enter != '\r' && enter != '\n')
@@ -73,7 +73,7 @@ void Dialogue(char text[], char color[], int seconds)
 
 void SaveGame(personagem *p)
 {	
-	// Pegar diretório atual
+	// Pegar diretÃ³rio atual
 	char path[MAX_BUF];
 	getcwd(path, MAX_BUF);
 	
@@ -81,17 +81,17 @@ void SaveGame(personagem *p)
 	mkdir("player_data");
 	// Declarando arquivo
 	FILE *fptr;
-	// Concatenando diretório atual com o nome do arquivo que vai ser criado
+	// Concatenando diretÃ³rio atual com o nome do arquivo que vai ser criado
 	strcat(path, "\\player_data\\player.txt");
 	// Criando arquivo
 	fptr = fopen(path,"w");
 	
-	// Se o diretório for nulo...
+	// Se o diretÃ³rio for nulo...
 	if(fptr == NULL)
 	{
 		printf("\n\t\t\tErro ao salvar.");      
 	}
-	// Senão...
+	// SenÃ£o...
 	else
 	{
 		// Salvando arquivo
@@ -113,17 +113,17 @@ void LoadGame(personagem *p)
 	getcwd(path, MAX_BUF);
 	// Declarando arquivo
 	FILE *fptr;
-	// Concatenando diretório atual com o nome do arquivo que vai ser criado
+	// Concatenando diretÃ³rio atual com o nome do arquivo que vai ser criado
 	strcat(path, "\\player_data\\player.txt");
 	// Criando arquivo
 	fptr = fopen(path,"r");
 	
-	// Se o diretório for nulo...
+	// Se o diretÃ³rio for nulo...
 	if(fptr == NULL)
 	{
 		printf("\t\t\tErro ao carregar.");      
 	}
-	// Senão...
+	// SenÃ£o...
 	else
 	{
 		// Salvando arquivo
@@ -147,7 +147,7 @@ int Enemy(int biome, enemy *e)
 	switch (biome)
     	{
         	case 0:
-        		strcpy(e->name, "Javar�");
+        		strcpy(e->name, "Javaré");
         		e->price = 20;
             	e->life = 50;
             	e->damage = 20;
@@ -165,13 +165,13 @@ int Enemy(int biome, enemy *e)
             	e->damage = 40;
             	break;
         	case 3:
-        		strcpy(e->name, "Carlos Inform�tica");
+        		strcpy(e->name, "Carlos Informática");
         		e->price = 60;
             	e->life = 200;
             	e->damage = 60;
             	break;
         	case 4:
-        		strcpy(e->name, "Crate�s C�pias");
+        		strcpy(e->name, "Crateús Cópias");
         		e->price = 70;
             	e->life = 300;
             	e->damage = 70;
@@ -185,16 +185,16 @@ int Attack(personagem *p)
 {
 	int damage;
     
-    	// Assumindo que 0 = fac�o, 1 = escopeta, 3 = revolver, default = inaptidão, tal que:
+    	// Assumindo que 0 = facão, 1 = escopeta, 3 = revolver, default = inaptidÃ£o, tal que:
     	// - 0 pode causar de 10 a 20 de dano;
     	// - 1 pode causar de 20 a 40 de dano;
     	// - 2 pode causar de 25 a 35 de dano;
-    	// - default não causa dano.
+    	// - default nÃ£o causa dano.
     	switch (p->gun)
     	{
-		// Se o jogador possuir um revólver
+		// Se o jogador possuir um revÃ³lver
 		case 0:
-		    // Sortear número entre 10 e 20
+		    // Sortear nÃºmero entre 10 e 20
 		    damage = rand() % 10 + 11;
 		    // Retornar o dano sorteado
 		    return damage;
@@ -202,19 +202,19 @@ int Attack(personagem *p)
 
 		// Se o jogador possuir uma escopeta  
 		case 1:
-		    // Sortear número entre 20 e 40
+		    // Sortear nÃºmero entre 20 e 40
 		    damage = rand() % 20 + 21;
 		    // Retornar o dano sorteado
 		    return damage;
 			break;
-		// Se o jogador possuir um facão  
+		// Se o jogador possuir um facÃ£o  
 		case 2:
-		    // Sortear número entre 25 e 35
+		    // Sortear nÃºmero entre 25 e 35
 		    damage = rand() % 10 + 26;
 		    // Retornar o dano sorteado
 		    return damage;
 			break;
-		// Se o jogador não estiver apto a realizar um ataque   
+		// Se o jogador nÃ£o estiver apto a realizar um ataque   
 		default:
 		    return 0;
     	}
@@ -223,7 +223,7 @@ int Attack(personagem *p)
 void Death(personagem *p) {
 	
 	if (p->level == 1) {
-		Dialogue("\n\t\t\tVoc� morreu antes mesmo de\n\t\t\tcome�ar a aventura...", "red", 1);
+		Dialogue("\n\t\t\tVocê morreu antes mesmo de\n\t\t\tcomeçar a aventura...\n\n\t\t\tNão houve saída para sua filha.", "red", 1);
 		Menu(p);
 	} else if (p->level == 2) {
 		Dialogue("\t\t\ta", "red", 2);
@@ -256,7 +256,7 @@ void Menu(personagem *p)
 	    	printf("\t\t\t======[MENU]======\n");
 	    	ArrowHere(1, position); printf("NOVO JOGO\n");
 	    	ArrowHere(2, position); printf("CARREGAR JOGO\n");
-	    	ArrowHere(3, position); printf("CR�DITOS\n");
+	    	ArrowHere(3, position); printf("CRÉDITOS\n");
 	    	ArrowHere(4, position); printf("SAIR\n");
 	    	printf("\t\t\t==================\n");
 
@@ -282,7 +282,7 @@ void Menu(personagem *p)
 			break;
 		case 3:
 			system("cls");
-			Dialogue("\t\t\tSer�o mostrados os cr�ditos.", "white", 0);
+			Dialogue("\t\t\tSerão mostrados os créditos.", "white", 0);
 			break;
 		case 4:
 			system("cls");
@@ -338,7 +338,7 @@ void Battle(int damageAttack, personagem *p, enemy *e)
         
     }
 	system("cls");
-	Dialogue("\t\t\tVoc� matou o inimigo!", "green", 0);
+	Dialogue("\t\t\tVocê matou o inimigo!", "green", 0);
 	printf("\t\t\t[+%d MOEDAS]", e->price);
 	p->coins += e->price;
 	Sleep(1000);
@@ -373,7 +373,7 @@ void History(personagem *p){
 	
 	while (1)
 	{
-		// o level determina a parte da hist�ria que ser� contada
+		// o level determina a parte da história que será contada
 		// 0 - inicio do jogo
 		
 		switch (p->level)
@@ -384,11 +384,11 @@ void History(personagem *p){
 				printf("\n\t\t\tPara iniciar, digite seu nome: ");
 				gets(p->nickname);
 					
-				Dialogue("\t\t\t Voc� � um cara que sua filha fica Doente ", "cyan", 0);
-				Dialogue("\t\t\tVoc� decide ent�o partir em uma jornada em busca de uma cura para ela", "cyan", 0);
-				Dialogue("\t\t\tAssim, armado com um velho fac�o", "cyan", 0);
+				Dialogue("\t\t\t Você é um cara que sua filha fica Doente ", "cyan", 0);
+				Dialogue("\t\t\tVocê decide então partir em uma jornada em busca de uma cura para ela", "cyan", 0);
+				Dialogue("\t\t\tAssim, armado com um velho facão", "cyan", 0);
 				
-				Dialogue("\t\t\tVoce Adquiriu fac�o!!!", "blue", 0);
+				Dialogue("\t\t\tVoce Adquiriu facão!!!", "blue", 0);
 				
 				printf("\t\t\tDeseja salvar o jogo? (s/n)");
 				tecla = getch();
@@ -428,7 +428,7 @@ void StoreMenu(personagem *p){
 	    	printf("\t\t\t    MOEDAS: %d\n  ", p->coins);
 	    	ArrowHere(1, position); printf("100 - REVOLVER\n");
 	    	ArrowHere(2, position); printf("200 - ESCOPETA\n");
-	    	ArrowHere(3, position); printf("050 - REM�DIO\n");
+	    	ArrowHere(3, position); printf("050 - REMÉDIO\n");
 	    	ArrowHere(4, position); printf("SAIR\n");
 	    	printf("\t\t\t==================\n");
 
@@ -447,11 +447,11 @@ void StoreMenu(personagem *p){
 		case 1:
 			system("cls");
 			if(p->gun >= 1){
-				Dialogue("Voc� j� possui essa arma ou outra melhor", "white", 0);
+				Dialogue("Você já possui essa arma ou outra melhor", "white", 0);
 				StoreMenu(p);
 			}
 			else if(p->coins < 100){
-				Dialogue("Voc� n�o possui moedas suficientes!", "white", 0);
+				Dialogue("Você não possui moedas suficientes!", "white", 0);
 				StoreMenu(p);
 			}
 			else{
@@ -464,17 +464,17 @@ void StoreMenu(personagem *p){
 		case 2:
 			system("cls");
 			if(p->gun >= 2){
-				Dialogue("Voc� j� possui essa arma", "white", 0);
+				Dialogue("Você já possui essa arma", "white", 0);
 				StoreMenu(p);
 			}
 			else if(p->coins < 200){
-				Dialogue("Voc� n�o possui moedas suficientes!", "white", 0);
+				Dialogue("Você não possui moedas suficientes!", "white", 0);
 				StoreMenu(p);
 			}
 			else{
 				p->coins -=200;
 				p->gun = 2;
-				Dialogue("\t\t\tVoc� Adquiriu uma escopeta!!!", "blue", 0);
+				Dialogue("\t\t\tVocê Adquiriu uma escopeta!!!", "blue", 0);
 				StoreMenu(p);
 			}
 			break;
@@ -482,14 +482,14 @@ void StoreMenu(personagem *p){
 			system("cls");
 			
 			if(p->coins < 50){
-				Dialogue("Voc� n�o possui moedas suficientes!", "white", 0);
+				Dialogue("Você não possui moedas suficientes!", "white", 0);
 				StoreMenu(p);
 			}
 			else{
 				p->coins -=50;
 				p->medicine +=1;
 				Dialogue("\t\t\tVoce Adquiriu um medicamento!!!", "blue", 0);
-				Dialogue("\t\t\tDurande a batalha voc� pode us�-lo para recuperar vida!!!", "blue", 0);
+				Dialogue("\t\t\tDurande a batalha você pode usá-lo para recuperar vida!!!", "blue", 0);
 				StoreMenu(p);
 			}
 			break;
