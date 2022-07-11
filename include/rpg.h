@@ -59,7 +59,7 @@ void Dialogue(char text[], char color[], int seconds)
 		}
     	}
     
-	// SÃ³ continuar quando Enter for pressionado
+	// Só continuar quando Enter for pressionado
 	printf("\n\n\t\t\t\e[1m[Enter para continuar...]\e[m \033[m");
 	char enter = 0;
 	while (enter != '\r' && enter != '\n')
@@ -73,7 +73,7 @@ void Dialogue(char text[], char color[], int seconds)
 
 void SaveGame(personagem *p)
 {	
-	// Pegar diretÃ³rio atual
+	// Pegar diretório atual
 	char path[MAX_BUF];
 	getcwd(path, MAX_BUF);
 	
@@ -81,17 +81,17 @@ void SaveGame(personagem *p)
 	mkdir("player_data");
 	// Declarando arquivo
 	FILE *fptr;
-	// Concatenando diretÃ³rio atual com o nome do arquivo que vai ser criado
+	// Concatenando diretório atual com o nome do arquivo que vai ser criado
 	strcat(path, "\\player_data\\player.txt");
 	// Criando arquivo
 	fptr = fopen(path,"w");
 	
-	// Se o diretÃ³rio for nulo...
+	// Se o diretório for nulo...
 	if(fptr == NULL)
 	{
 		printf("\n\t\t\tErro ao salvar.");      
 	}
-	// SenÃ£o...
+	// Senão...
 	else
 	{
 		// Salvando arquivo
@@ -113,17 +113,17 @@ void LoadGame(personagem *p)
 	getcwd(path, MAX_BUF);
 	// Declarando arquivo
 	FILE *fptr;
-	// Concatenando diretÃ³rio atual com o nome do arquivo que vai ser criado
+	// Concatenando diretório atual com o nome do arquivo que vai ser criado
 	strcat(path, "\\player_data\\player.txt");
 	// Criando arquivo
 	fptr = fopen(path,"r");
 	
-	// Se o diretÃ³rio for nulo...
+	// Se o diretório for nulo...
 	if(fptr == NULL)
 	{
 		printf("\t\t\tErro ao carregar.");      
 	}
-	// SenÃ£o...
+	// Senão...
 	else
 	{
 		// Salvando arquivo
@@ -185,14 +185,14 @@ int Attack(personagem *p)
 {
 	int damage;
     
-    	// Assumindo que 0 = facão, 1 = escopeta, 3 = revolver, default = inaptidÃ£o, tal que:
+    	// Assumindo que 0 = facão, 1 = escopeta, 3 = revolver, default = inaptidão, tal que:
     	// - 0 pode causar de 10 a 20 de dano;
     	// - 1 pode causar de 20 a 40 de dano;
     	// - 2 pode causar de 25 a 35 de dano;
-    	// - default nÃ£o causa dano.
+    	// - default não causa dano.
     	switch (p->gun)
     	{
-		// Se o jogador possuir um revÃ³lver
+		// Se o jogador possuir um revólver
 		case 0:
 		    // Sortear nÃºmero entre 10 e 20
 		    damage = rand() % 10 + 11;
@@ -202,19 +202,19 @@ int Attack(personagem *p)
 
 		// Se o jogador possuir uma escopeta  
 		case 1:
-		    // Sortear nÃºmero entre 20 e 40
+		    // Sortear número entre 20 e 40
 		    damage = rand() % 20 + 21;
 		    // Retornar o dano sorteado
 		    return damage;
 			break;
-		// Se o jogador possuir um facÃ£o  
+		// Se o jogador possuir um facão  
 		case 2:
-		    // Sortear nÃºmero entre 25 e 35
+		    // Sortear número entre 25 e 35
 		    damage = rand() % 10 + 26;
 		    // Retornar o dano sorteado
 		    return damage;
 			break;
-		// Se o jogador nÃ£o estiver apto a realizar um ataque   
+		// Se o jogador não estiver apto a realizar um ataque   
 		default:
 		    return 0;
     	}
