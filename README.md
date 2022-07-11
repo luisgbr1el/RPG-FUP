@@ -1,8 +1,16 @@
 # RPG
 RPG textual de aventura e ação feito em C - Trabalho de Fundamentos da Programação (Ciência da Computação).
 
+## Componentes
+- [Diego Targino](https://github.com/diego-targino)
+- [José Luis](https://github.com/yJoseLuis)
+- [Luis Gabriel](https://github.com/luisgbr1el)
 
-## Biblioteca `rpg.h`
+# Sinopse
+Sua pequena filha possui uma doença desconhecida, só te resta tentar salvá-la. Enfrente inimigos em uma aventura e traga a cura antes que o pior aconteça.
+
+
+# Biblioteca `rpg.h`
 Para facilitar a execução do projeto, foi criada uma biblioteca chamada [`rpg.h`](https://github.com/luisgbr1el/RPG-c/blob/main/include/rpg.h), onde criamos todas as funções para, finalmente, serem importadas para a [`main.c`](https://github.com/luisgbr1el/RPG-c/blob/main/main.c).
 
 |Função|Descrição|
