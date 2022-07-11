@@ -7,7 +7,7 @@ RPG textual de aventura e ação feito em C - Trabalho de Fundamentos da Program
 - [Luis Gabriel](https://github.com/luisgbr1el)
 
 # Sinopse
-Sua pequena filha possui uma doença desconhecida, só te resta tentar salvá-la. Enfrente inimigos em uma aventura e traga a cura antes que o pior aconteça.
+Sua pequena filha possui uma doença desconhecida, só te resta tentar salva-la. Enfrente inimigos em uma aventura e traga a cura antes que o pior aconteça.
 
 
 # Biblioteca `rpg.h`
