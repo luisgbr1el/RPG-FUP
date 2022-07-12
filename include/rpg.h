@@ -121,7 +121,8 @@ void LoadGame(personagem *p)
 	// Se o diretório for nulo...
 	if(fptr == NULL)
 	{
-		printf("\t\t\tErro ao carregar.");      
+		Dialogue("\n\t\t\tVoc� n�o possui nenhum jogo salvo.", "white", 0);
+		Menu(p);      
 	}
 	// Senão...
 	else
@@ -253,11 +254,10 @@ void Menu(personagem *p)
   	{
 		system("cls");
 	    	// Mostrando menu
-	    	printf("\t\t\t======[MENU]======\n");
+	    	printf("\n\t\t\t======[MENU]======\n");
 	    	ArrowHere(1, position); printf("NOVO JOGO\n");
 	    	ArrowHere(2, position); printf("CARREGAR JOGO\n");
-	    	ArrowHere(3, position); printf("CRÉDITOS\n");
-	    	ArrowHere(4, position); printf("SAIR\n");
+	    	ArrowHere(3, position); printf("SAIR\n");
 	    	printf("\t\t\t==================\n");
 
 	    	keyPressed = getch();
@@ -282,10 +282,6 @@ void Menu(personagem *p)
 			break;
 		case 3:
 			system("cls");
-			Dialogue("\t\t\tSerão mostrados os créditos.", "white", 0);
-			break;
-		case 4:
-			system("cls");
 			break;
 	}
 }
@@ -306,7 +302,7 @@ void Battle(int damageAttack, personagem *p, enemy *e)
 	    		printf("\n\t\t\tInimigo: %d PV\n", e->life);
 	    		printf("\t\t\tVida do jogador: %d PV\n", p->life);
 	    		printf("\n\n\t\t\t======[MENU]======\n");
-	    		ArrowHere(1, position); printf("ATACAR\n");
+	    		ArrowHere(1, position); printf("Atacar %s\n", e->name);
 	    		printf("\t\t\t==================\n");
 
 	    		keyPressed = getch();
@@ -339,7 +335,7 @@ void Battle(int damageAttack, personagem *p, enemy *e)
     }
 	system("cls");
 	Dialogue("\t\t\tVocê matou o inimigo!", "green", 0);
-	printf("\t\t\t[+%d MOEDAS]", e->price);
+	printf("\n\t\t\t[+%d MOEDAS]", e->price);
 	p->coins += e->price;
 	Sleep(1000);
 }
@@ -384,29 +380,37 @@ void History(personagem *p){
 				printf("\n\t\t\tPara iniciar, digite seu nome: ");
 				gets(p->nickname);
 					
-				Dialogue("\t\t\t Você é um cara que sua filha fica Doente ", "cyan", 0);
-				Dialogue("\t\t\tVocê decide então partir em uma jornada em busca de uma cura para ela", "cyan", 0);
-				Dialogue("\t\t\tAssim, armado com um velho facão", "cyan", 0);
+				Dialogue("\t\t\tVoc� � um simples homem do interior\n\t\t\tque possui diversos problemas...", "cyan", 0);
+				Dialogue("\t\t\tSua filha est� doente a alguns meses.\n\t\t\tSua esposa chora dia e noite por causa\n\t\t\tda falta de melhora da filha.", "cyan", 0);
+				Dialogue("\t\t\tEnt�o voc�, determinado a curar sua\n\t\t\tpequena, se disp�e a enfrentar o que vier\n\t\t\tpela frente em troca da cura.", "cyan", 0);
 				
-				Dialogue("\t\t\tVoce Adquiriu facão!!!", "blue", 0);
+				Dialogue("\t\t\t[Voc� adquiriu um fac�o enferrujado]", "blue", 0);
 				
-				printf("\t\t\tDeseja salvar o jogo? (s/n)");
-				tecla = getch();
+				Dialogue("\t\t\tEsse fac�o estava no fundo de seu\n\t\t\tquintal, junto com outras tralhas.", "cyan", 0);
+				Dialogue("\t\t\tVoc� se despede das duas e promete\n\t\t\tvoltar.\n\n\t\t\tVoc� sai por aquela porta com a maior\n\t\t\tang�stia que um homem poderia ter,\n\t\t\tmas com a motiva��o de que conseguiria\n\t\t\tsalvar a garota.", "cyan", 0);
+				Dialogue("\t\t\tSaindo de casa e pegando a rota mais\n\t\t\tpr�xima, voc� avista uma floresta que\n\t\t\tn�o tinha uma apar�ncia legal.\n\n\t\t\t�rvores secas, nenhum barulho\n\t\t\tsequer ecoa daquele lugar.\n\t\t\tO que voc� sente � apenas um cheiro\n\t\t\tsemelhante ao de esgoto.", "cyan", 0);
+				Dialogue("\t\t\tVoc� se aproxima da floresta e come�a\n\t\t\ta escutar um barulho de algo\n\t\t\tborbulhando. � como se houvesse �gua\n\t\t\tfervendo ali perto.", "cyan", 0);
+				Dialogue("\t\t\tVoc� come�a a escutar um barulho.\n\t\t\tUm barulho estranho mas similar ao\n\t\t\tde passos ou algo rastejando.", "cyan", 0);
+				Dialogue("\t\t\t[Voc� encontra um crocodilo.]", "red", 2);
 				
 				p->gun = 0;
 				p->life = 500;
 				p->coins = 10;
 				p->level = 1;
 				
+				enemy e;
+				Enemy(0, &e);
+				Battle(Attack(p), p, &e);
 				
+				printf("\n\t\t\tDeseja salvar o jogo? (s/n)");
+				tecla = getch();
+				
+
 				if (tecla == 83 || tecla == 115) {
 					SaveGame(p);
 				} else if (tecla == 78 || tecla == 110) {
 	
 				}
-				enemy e;
-				Enemy(0, &e);
-				Battle(Attack(p), p, &e);
 				break;
 			case 1:
 				Dialogue("\t\t\tSegunda parte", "green", 0);

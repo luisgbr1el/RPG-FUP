@@ -14,9 +14,8 @@ int main()
 	enemy e;
 //	p.coins = 500;
 	
-	
-	StoreMenu(&p);
-	//Menu(&p);
+	Dialogue("\t\t\tIntegrantes do grupo:\n\t\t\t- Francisco Diego\n\t\t\t- José Luis Braga\n\t\t\t- Luis Gabriel", "yellow", 0);
+	Menu(&p);
 	
 	//LoadGame(&p);
 //	strcpy(p.nickname, "salve");
@@ -33,8 +32,6 @@ int main()
 	//Enemy(4, &e);
 	
 	//Battle(Attack(&p), &p, &e);
-	
-	//History(&p);
 	
 	return 0;
 }
