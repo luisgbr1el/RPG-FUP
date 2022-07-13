@@ -27,3 +27,4 @@ Para facilitar a execução do projeto, foi criada uma biblioteca chamada [`rpg.
 |`Loading()`|Função que mostra uma tela de loading ao carregar save.|
 |`History()`|Função que controla o "storytelling" do jogo, ordenando acontecimentos.|
 |`StoreMenu()`|Função que mostra o menu da loja, onde o jogador pode usar suas moedas.|
+|`sizeOfpoiter()`|Função que mede o tamanho do ponteiro.|
