@@ -148,31 +148,31 @@ int Enemy(int biome, enemy *e)
 	switch (biome)
     	{
         	case 0:
-        		strcpy(e->name, "JavarÃ©");
+        		strcpy(e->name, "Cobra");
         		e->price = 20;
             	e->life = 50;
             	e->damage = 20;
             	break;
         	case 1:
-        		strcpy(e->name, "Bruno");
+        		strcpy(e->name, "Lobo");
         		e->price = 30;
             	e->life = 100;
             	e->damage = 30;
             	break;
         	case 2:
-        		strcpy(e->name, "Pedro");
+        		strcpy(e->name, "Crocodilo");
         		e->price = 40;
             	e->life = 150;
             	e->damage = 40;
             	break;
         	case 3:
-        		strcpy(e->name, "Carlos InformÃ¡tica");
+        		strcpy(e->name, "Tubarão");
         		e->price = 60;
             	e->life = 200;
             	e->damage = 60;
             	break;
         	case 4:
-        		strcpy(e->name, "CrateÃºs CÃ³pias");
+        		strcpy(e->name, "Onça");
         		e->price = 70;
             	e->life = 300;
             	e->damage = 70;
@@ -274,7 +274,7 @@ void Menu(personagem *p)
 	switch (position) {
 		case 1:
 			system("cls");
-			History(*p);
+			History(p);
 			break;
 		case 2:
 			system("cls");
@@ -322,11 +322,16 @@ void Battle(int damageAttack, personagem *p, enemy *e)
 				e->life -= damageAttack;
 				
 				p->life -= e->damage;
-				printf("\n\t\t\t[%d DE DANO!]", damageAttack);
+				printf("\n\t\t\t[VOCÊ CAUSOU %d DE DANO!]", damageAttack);
+				printf("\n\t\t\t[VOCÊ SOFREU %d DE DANO!]\n", e->damage);
       			damageAttack = Attack(p);
       			
       			if (p->life <= 0) {
       				Death(p);
+      				p->gun = 0;
+					p->life = 500;
+					p->coins = 30;
+					p->level = 1;
 				}
       			
 				break;				
@@ -387,15 +392,15 @@ void History(personagem *p){
 				Dialogue("\t\t\t[Vocï¿½ adquiriu um facï¿½o enferrujado]", "blue", 0);
 				
 				Dialogue("\t\t\tEsse facï¿½o estava no fundo de seu\n\t\t\tquintal, junto com outras tralhas.", "cyan", 0);
-				Dialogue("\t\t\tVocï¿½ se despede das duas e promete\n\t\t\tvoltar.\n\n\t\t\tVocï¿½ sai por aquela porta com a maior\n\t\t\tangï¿½stia que um homem poderia ter,\n\t\t\tmas com a motivaï¿½ï¿½o de que conseguiria\n\t\t\tsalvar a garota.", "cyan", 0);
+				Dialogue("\t\t\tVocï¿½ se despede das duas e promete\n\t\t\tvoltar.\n\n\t\t\tVocï¿½ sai por aquela porta com a maior\n\t\t\tangï¿½stia que alguém poderia ter,\n\t\t\tmas com a motivaï¿½ï¿½o de que conseguiria\n\t\t\tsalvar a garota.", "cyan", 0);
 				Dialogue("\t\t\tSaindo de casa e pegando a rota mais\n\t\t\tprï¿½xima, vocï¿½ avista uma floresta que\n\t\t\tnï¿½o tinha uma aparï¿½ncia legal.\n\n\t\t\tï¿½rvores secas, nenhum barulho\n\t\t\tsequer ecoa daquele lugar.\n\t\t\tO que vocï¿½ sente ï¿½ apenas um cheiro\n\t\t\tsemelhante ao de esgoto.", "cyan", 0);
 				Dialogue("\t\t\tVocï¿½ se aproxima da floresta e comeï¿½a\n\t\t\ta escutar um barulho de algo\n\t\t\tborbulhando. ï¿½ como se houvesse ï¿½gua\n\t\t\tfervendo ali perto.", "cyan", 0);
 				Dialogue("\t\t\tVocê começa a escutar um barulho.\n\t\t\tUm barulho estranho mas similar ao\n\t\t\tde passos ou algo rastejando.", "cyan", 0);
-				Dialogue("\t\t\t[Você encontra um crocodilo.]", "red", 2);
+				Dialogue("\t\t\t[Você encontra uma cobra.]", "red", 2);
 				
 				p->gun = 0;
 				p->life = 500;
-				p->coins = 10;
+				p->coins = 30;
 				p->level = 1;
 				
 				enemy e;
@@ -413,7 +418,13 @@ void History(personagem *p){
 				}
 				break;
 			case 1:
-				Dialogue("\t\t\tSegunda parte", "green", 0);
+				Dialogue("\t\t\tVocê conseguiu derrotar o bicho\n\t\t\tmas aparenta estar machucado.", "cyan", 0);
+				Dialogue("\t\t\tAndando mais um pouco, você avista\n\t\t\tuma pequena cabana que aparenta\n\t\t\tser uma loja.", "cyan", 0);
+				Dialogue("\t\t\tVocê vê que a porta está aberta\n\t\t\te entra na cabana.", "cyan", 0);
+				Dialogue("\t\t\t\e[1mComerciante:\e[m\n\t\t\tOlá meu caro, você aparenta não estar\n\t\t\tmuito bem. Deseja algo?", "green", 0);
+				StoreMenu(p);
+				Dialogue("\t\t\t\e[1mComerciante:\e[m\n\t\t\tValeu meu amigo, volte sempre.", "green", 0);
+				Dialogue("\t\t\t...", "cyan", 0);
 				break;
 	
 		}
@@ -430,9 +441,9 @@ void StoreMenu(personagem *p){
 	    	// Mostrando menu
 	    	printf("\t\t\t======[LOJA]======\n");
 	    	printf("\t\t\t    MOEDAS: %d\n  ", p->coins);
-	    	ArrowHere(1, position); printf("100 - REVOLVER\n");
+	    	ArrowHere(1, position); printf("100 - REVÓLVER\n");
 	    	ArrowHere(2, position); printf("200 - ESCOPETA\n");
-	    	ArrowHere(3, position); printf("050 - REMÃ‰DIO\n");
+	    	ArrowHere(3, position); printf("050 - REMÉDIO\n");
 	    	ArrowHere(4, position); printf("SAIR\n");
 	    	printf("\t\t\t==================\n");
 
@@ -451,34 +462,34 @@ void StoreMenu(personagem *p){
 		case 1:
 			system("cls");
 			if(p->gun >= 1){
-				Dialogue("VocÃª jÃ¡ possui essa arma ou outra melhor", "white", 0);
+				Dialogue("[VocÃª jÃ¡ possui essa arma ou outra melhor.]", "white", 0);
 				StoreMenu(p);
 			}
 			else if(p->coins < 100){
-				Dialogue("VocÃª nÃ£o possui moedas suficientes!", "white", 0);
+				Dialogue("[VocÃª nÃ£o possui moedas suficientes!]", "white", 0);
 				StoreMenu(p);
 			}
 			else{
 				p->coins -=100;
 				p->gun = 1;
-				Dialogue("\t\t\tVoce Adquiriu um revolver!!!", "blue", 0);
+				Dialogue("\t\t\t[Voce adquiriu um revolver!]", "blue", 0);
 				StoreMenu(p);
 			}
 			break;
 		case 2:
 			system("cls");
 			if(p->gun >= 2){
-				Dialogue("VocÃª jÃ¡ possui essa arma", "white", 0);
+				Dialogue("[VocÃª jÃ¡ possui essa arma.]", "white", 0);
 				StoreMenu(p);
 			}
 			else if(p->coins < 200){
-				Dialogue("VocÃª nÃ£o possui moedas suficientes!", "white", 0);
+				Dialogue("[VocÃª nÃ£o possui moedas suficientes!]", "white", 0);
 				StoreMenu(p);
 			}
 			else{
 				p->coins -=200;
 				p->gun = 2;
-				Dialogue("\t\t\tVocÃª Adquiriu uma escopeta!!!", "blue", 0);
+				Dialogue("\t\t\t[VocÃª adquiriu uma escopeta", "blue", 0);
 				StoreMenu(p);
 			}
 			break;
@@ -486,14 +497,15 @@ void StoreMenu(personagem *p){
 			system("cls");
 			
 			if(p->coins < 50){
-				Dialogue("VocÃª nÃ£o possui moedas suficientes!", "white", 0);
+				Dialogue("[VocÃª nÃ£o possui moedas suficientes!]", "white", 0);
 				StoreMenu(p);
 			}
 			else{
 				p->coins -=50;
 				p->medicine +=1;
-				Dialogue("\t\t\tVoce Adquiriu um medicamento!!!", "blue", 0);
-				Dialogue("\t\t\tDurande a batalha vocÃª pode usÃ¡-lo para recuperar vida!!!", "blue", 0);
+				p->life+=40;
+				p->medicine--;
+				Dialogue("\t\t\t[Você adquiriu remédios e curou 40 de vida]", "blue", 0);
 				StoreMenu(p);
 			}
 			break;
