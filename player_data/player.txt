@@ -1,4 +1,4 @@
-tar
+jogador1
 420
 1
 20
