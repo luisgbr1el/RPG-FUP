@@ -60,7 +60,7 @@ void Dialogue(char text[], char color[], int seconds)
 		}
     	}
     
-	// Só continuar quando Enter for pressionado
+	// SÃ³ continuar quando Enter for pressionado
 	printf("\n\n\t\t\t\e[1m[Enter para continuar...]\e[m \033[m");
 	char enter = 0;
 	while (enter != '\r' && enter != '\n')
@@ -77,7 +77,7 @@ int sizeOfpoiter(int *pointer){
 
 void SaveGame(personagem *p)
 {	
-	// Pegar diretório atual
+	// Pegar diretÃ³rio atual
 	char path[MAX_BUF];
 	getcwd(path, MAX_BUF);
 	
@@ -85,17 +85,17 @@ void SaveGame(personagem *p)
 	mkdir("player_data");
 	// Declarando arquivo
 	FILE *fptr;
-	// Concatenando diretório atual com o nome do arquivo que vai ser criado
+	// Concatenando diretÃ³rio atual com o nome do arquivo que vai ser criado
 	strcat(path, "\\player_data\\player.txt");
 	// Criando arquivo
 	fptr = fopen(path,"w");
 	
-	// Se o diretório for nulo...
+	// Se o diretÃ³rio for nulo...
 	if(fptr == NULL)
 	{
 		printf("\n\t\t\tErro ao salvar.");      
 	}
-	// Senão...
+	// SenÃ£o...
 	else
 	{
 		// Salvando arquivo
@@ -123,18 +123,18 @@ void LoadGame(personagem *p)
 	getcwd(path, MAX_BUF);
 	// Declarando arquivo
 	FILE *fptr;
-	// Concatenando diretório atual com o nome do arquivo que vai ser criado
+	// Concatenando diretÃ³rio atual com o nome do arquivo que vai ser criado
 	strcat(path, "\\player_data\\player.txt");
 	// Criando arquivo
 	fptr = fopen(path,"r");
 	
-	// Se o diretório for nulo...
+	// Se o diretÃ³rio for nulo...
 	if(fptr == NULL)
 	{
-		Dialogue("\n\t\t\tVoc� n�o possui nenhum jogo salvo.", "white", 0);
+		Dialogue("\n\t\t\tInfelizmente você não possui nenhum jogo salvo.", "white", 0);
 		Menu(p);      
 	}
-	// Senão...
+	// SenÃ£o...
 	else
 	{
 		char aux[123];
@@ -192,13 +192,13 @@ int Enemy(int biome, enemy *e)
             	e->damage = 40;
             	break;
         	case 3:
-        		strcpy(e->name, "Tubar�o");
+        		strcpy(e->name, "Tubarão");
         		e->price = 60;
             	e->life = 200;
             	e->damage = 60;
             	break;
         	case 4:
-        		strcpy(e->name, "On�a");
+        		strcpy(e->name, "Onça");
         		e->price = 70;
             	e->life = 300;
             	e->damage = 70;
@@ -212,16 +212,16 @@ int Attack(personagem *p)
 {
 	int damage;
     
-    	// Assumindo que 0 = facão, 1 = escopeta, 3 = revolver, default = inaptidão, tal que:
+    	// Assumindo que 0 = facÃ£o, 1 = escopeta, 3 = revolver, default = inaptidÃ£o, tal que:
     	// - 0 pode causar de 10 a 20 de dano;
     	// - 1 pode causar de 20 a 40 de dano;
     	// - 2 pode causar de 25 a 35 de dano;
-    	// - default não causa dano.
+    	// - default nÃ£o causa dano.
     	switch (p->gun)
     	{
-		// Se o jogador possuir um revólver
+		// Se o jogador possuir um revÃ³lver
 		case 0:
-		    // Sortear nÃºmero entre 10 e 20
+		    // Sortear nÃƒÂºmero entre 10 e 20
 		    damage = rand() % 10 + 11;
 		    // Retornar o dano sorteado
 		    return damage;
@@ -229,19 +229,19 @@ int Attack(personagem *p)
 
 		// Se o jogador possuir uma escopeta  
 		case 1:
-		    // Sortear número entre 20 e 40
+		    // Sortear nÃºmero entre 20 e 40
 		    damage = rand() % 20 + 21;
 		    // Retornar o dano sorteado
 		    return damage;
 			break;
-		// Se o jogador possuir um facão  
+		// Se o jogador possuir um facÃ£o  
 		case 2:
-		    // Sortear número entre 25 e 35
+		    // Sortear nÃºmero entre 25 e 35
 		    damage = rand() % 10 + 26;
 		    // Retornar o dano sorteado
 		    return damage;
 			break;
-		// Se o jogador não estiver apto a realizar um ataque   
+		// Se o jogador nÃ£o estiver apto a realizar um ataque   
 		default:
 		    return 0;
     	}
@@ -250,7 +250,7 @@ int Attack(personagem *p)
 void Death(personagem *p) {
 	
 	if (p->level == 1) {
-		Dialogue("\n\t\t\tVocê morreu antes mesmo de\n\t\t\tcomeçar a aventura...\n\n\t\t\tNão houve saída para sua filha.", "red", 1);
+		Dialogue("\n\t\t\tVocÃª morreu antes mesmo de\n\t\t\tcomeÃ§ar a aventura...\n\n\t\t\tNÃ£o houve saÃ­da para sua filha.", "red", 1);
 		Menu(p);
 	} else if (p->level == 2) {
 		Dialogue("\t\t\ta", "red", 2);
@@ -348,8 +348,8 @@ void Battle(int damageAttack, personagem *p, enemy *e)
 				e->life -= damageAttack;
 				
 				p->life -= e->damage;
-				printf("\n\t\t\t[VOC� CAUSOU %d DE DANO!]", damageAttack);
-				printf("\n\t\t\t[VOC� SOFREU %d DE DANO!]\n", e->damage);
+				printf("\n\t\t\t[VOCÊ CAUSOU %d DE DANO!]", damageAttack);
+				printf("\n\t\t\t[VOCÊ SOFREU %d DE DANO!]\n", e->damage);
       			damageAttack = Attack(p);
       			
       			if (p->life <= 0) {
@@ -365,7 +365,7 @@ void Battle(int damageAttack, personagem *p, enemy *e)
         
     }
 	system("cls");
-	Dialogue("\t\t\tVocê matou o inimigo!", "green", 0);
+	Dialogue("\t\t\tVocÃª matou o inimigo!", "green", 0);
 	printf("\n\t\t\t[+%d MOEDAS]", e->price);
 	p->coins += e->price;
 	Sleep(1000);
@@ -400,7 +400,7 @@ void History(personagem *p){
 	
 	while (1)
 	{
-		// o level determina a parte da história que será contada
+		// o level determina a parte da histÃ³ria que serÃ¡ contada
 		// 0 - inicio do jogo
 		
 		switch (p->level)
@@ -411,18 +411,18 @@ void History(personagem *p){
 				printf("\n\t\t\tPara iniciar, digite seu nome: ");
 				gets(p->nickname);
 					
-				Dialogue("\t\t\tVoc� � um simples homem do interior\n\t\t\tque possui diversos problemas...", "cyan", 0);
-				Dialogue("\t\t\tSua filha est� doente a alguns meses.\n\t\t\tSua esposa chora dia e noite por causa\n\t\t\tda falta de melhora da filha.", "cyan", 0);
-				Dialogue("\t\t\tEnt�oo voc�, determinado a curar sua\n\t\t\tpequena, se disp�e a enfrentar o que vier\n\t\t\tpela frente em troca da cura.", "cyan", 0);
+				Dialogue("\t\t\tVocê é um simples homem do interior\n\t\t\tque possui diversos problemas...", "cyan", 0);
+				Dialogue("\t\t\tSua filha está doente a alguns meses.\n\t\t\tSua esposa chora dia e noite por causa\n\t\t\tda falta de melhora da filha.", "cyan", 0);
+				Dialogue("\t\t\tEntãoo você, determinado a curar sua\n\t\t\tpequena, se dispõe a enfrentar o que vier\n\t\t\tpela frente em troca da cura.", "cyan", 0);
 				
-				Dialogue("\t\t\t[Voc� adquiriu um fac�o enferrujado]", "blue", 0);
+				Dialogue("\t\t\t[Você adquiriu um facão enferrujado]", "blue", 0);
 				
-				Dialogue("\t\t\tEsse fac�o estava no fundo de seu\n\t\t\tquintal, junto com outras tralhas.", "cyan", 0);
-				Dialogue("\t\t\tVoc� se despede das duas e promete\n\t\t\tvoltar.\n\n\t\t\tVoc� sai por aquela porta com a maior\n\t\t\tang�stia que algu�m poderia ter,\n\t\t\tmas com a motiva��o de que conseguiria\n\t\t\tsalvar a garota.", "cyan", 0);
-				Dialogue("\t\t\tSaindo de casa e pegando a rota mais\n\t\t\tpr�xima, voc� avista uma floresta que\n\t\t\tn�o tinha uma apar�ncia legal.\n\n\t\t\t�rvores secas, nenhum barulho\n\t\t\tsequer ecoa daquele lugar.\n\t\t\tO que voc� sente � apenas um cheiro\n\t\t\tsemelhante ao de esgoto.", "cyan", 0);
-				Dialogue("\t\t\tVoc� se aproxima da floresta e come�a\n\t\t\ta escutar um barulho de algo\n\t\t\tborbulhando. � como se houvesse �gua\n\t\t\tfervendo ali perto.", "cyan", 0);
-				Dialogue("\t\t\tVoc� come�a a escutar um barulho.\n\t\t\tUm barulho estranho mas similar ao\n\t\t\tde passos ou algo rastejando.", "cyan", 0);
-				Dialogue("\t\t\t[Voc� encontra uma cobra.]", "red", 2);
+				Dialogue("\t\t\tEsse facão estava no fundo de seu\n\t\t\tquintal, junto com outras tralhas.", "cyan", 0);
+				Dialogue("\t\t\tVocê se despede das duas e promete\n\t\t\tvoltar.\n\n\t\t\tVocê sai por aquela porta com a maior\n\t\t\tangï¿½stia que alguém poderia ter,\n\t\t\tmas com a motivaï¿½ï¿½o de que conseguiria\n\t\t\tsalvar a garota.", "cyan", 0);
+				Dialogue("\t\t\tSaindo de casa e pegando a rota mais\n\t\t\tprï¿½xima, você avista uma floresta que\n\t\t\tnï¿½o tinha uma aparï¿½ncia legal.\n\n\t\t\tï¿½rvores secas, nenhum barulho\n\t\t\tsequer ecoa daquele lugar.\n\t\t\tO que vocï¿½ sente ï¿½ apenas um cheiro\n\t\t\tsemelhante ao de esgoto.", "cyan", 0);
+				Dialogue("\t\t\tVocê se aproxima da floresta e começa\n\t\t\ta escutar um barulho de algo\n\t\t\tborbulhando. ï¿½ como se houvesse ï¿½gua\n\t\t\tfervendo ali perto.", "cyan", 0);
+				Dialogue("\t\t\tVocê começa a escutar um barulho.\n\t\t\tUm barulho estranho mas similar ao\n\t\t\tde passos ou algo rastejando.", "cyan", 0);
+				Dialogue("\t\t\t[Você encontra uma cobra.]", "red", 2);
 				
 				p->gun = 0;
 				p->life = 500;
@@ -446,10 +446,10 @@ void History(personagem *p){
 				}
 				break;
 			case 1:
-				Dialogue("\t\t\tVoc� conseguiu derrotar o bicho\n\t\t\tmas aparenta estar machucado.", "cyan", 0);
-				Dialogue("\t\t\tAndando mais um pouco, voc� avista\n\t\t\tuma pequena cabana que aparenta\n\t\t\tser uma loja.", "cyan", 0);
-				Dialogue("\t\t\tVoc� v� que a porta est� aberta\n\t\t\te entra na cabana.", "cyan", 0);
-				Dialogue("\t\t\t\e[1mComerciante:\e[m\n\t\t\tOl� meu caro, voc� aparenta n�o estar\n\t\t\tmuito bem. Deseja algo?", "green", 0);
+				Dialogue("\t\t\tVocê conseguiu derrotar o bicho\n\t\t\tmas aparenta estar machucado.", "cyan", 0);
+				Dialogue("\t\t\tAndando mais um pouco, você avista\n\t\t\tuma pequena cabana que aparenta\n\t\t\tser uma loja.", "cyan", 0);
+				Dialogue("\t\t\tVocê vê que a porta está aberta\n\t\t\te entra na cabana.", "cyan", 0);
+				Dialogue("\t\t\t\e[1mComerciante:\e[m\n\t\t\tOlá meu caro, você aparenta não estar\n\t\t\tmuito bem. Deseja algo?", "green", 0);
 				StoreMenu(p);
 				Dialogue("\t\t\t\e[1mComerciante:\e[m\n\t\t\tValeu meu amigo, volte sempre.", "green", 0);
 				Dialogue("\t\t\t...", "cyan", 0);
@@ -473,7 +473,7 @@ void StoreMenu(personagem *p){
 	    	int k;
 	    	for(k=0; k< sizeOfpoiter(p->inventory); k++){
 				if(p->inventory[k] == '0'){
-	    			printf("\t\t\t FA��O ENFERRUJADO\n");
+	    			printf("\t\t\t FAÇÃO ENFERRUJADO\n");
 				}
 				if(p->inventory[k] == '1'){
 	    			printf("\t\t\t REVOLVER\n");
@@ -482,9 +482,9 @@ void StoreMenu(personagem *p){
 	    			printf("\t\t\t ESCOPETA\n");
 				}
 			}
-	    	ArrowHere(1, position); printf("100 - REV�LVER\n");
+	    	ArrowHere(1, position); printf("100 - REVÓLVER\n");
 	    	ArrowHere(2, position); printf("200 - ESCOPETA\n");
-	    	ArrowHere(3, position); printf("050 - REM�DIO\n");
+	    	ArrowHere(3, position); printf("050 - REMÉDIO\n");
 	    	ArrowHere(4, position); printf("SAIR\n");
 	    	printf("\t\t\t==================\n");
 
@@ -503,11 +503,11 @@ void StoreMenu(personagem *p){
 		case 1:
 			system("cls");
 			if(p->gun >= 1){
-				Dialogue("[Voc� j� possui essa arma ou outra melhor.]", "white", 0);
+				Dialogue("[Você já possui essa arma ou outra melhor.]", "white", 0);
 				StoreMenu(p);
 			}
 			else if(p->coins < 100){
-				Dialogue("[Voc� n�o possui moedas suficientes!]", "white", 0);
+				Dialogue("[Você não possui moedas suficientes!]", "white", 0);
 				StoreMenu(p);
 			}
 			else{
@@ -525,11 +525,11 @@ void StoreMenu(personagem *p){
 		case 2:
 			system("cls");
 			if(p->gun >= 2){
-				Dialogue("[Voc� j� possui essa arma.]", "white", 0);
+				Dialogue("[Você já possui essa arma.]", "white", 0);
 				StoreMenu(p);
 			}
 			else if(p->coins < 200){
-				Dialogue("[Voc� n�o possui moedas suficientes!]", "white", 0);
+				Dialogue("[Você não possui moedas suficientes!]", "white", 0);
 				StoreMenu(p);
 			}
 			else{
@@ -538,7 +538,7 @@ void StoreMenu(personagem *p){
 				p->inventory = realloc(p->inventory, sizeof(p->inventory)+ sizeof(int));
 				int size = sizeOfpoiter(p->inventory);
 				p->inventory[size-1] = "2";
-				Dialogue("\t\t\t[Voc� adquiriu uma escopeta", "blue", 0);
+				Dialogue("\t\t\t[Você adquiriu uma escopeta", "blue", 0);
 				StoreMenu(p);
 			}
 			break;
@@ -546,7 +546,7 @@ void StoreMenu(personagem *p){
 			system("cls");
 			
 			if(p->coins < 50){
-				Dialogue("[Voc� n�o possui moedas suficientes!]", "white", 0);
+				Dialogue("[Você não possui moedas suficientes!]", "white", 0);
 				StoreMenu(p);
 			}
 			else{
@@ -554,7 +554,7 @@ void StoreMenu(personagem *p){
 				p->medicine +=1;
 				p->life+=40;
 				p->medicine--;
-				Dialogue("\t\t\t[Voc� adquiriu rem�dios e curou 40 de vida]", "blue", 0);
+				Dialogue("\t\t\t[Você adquiriu remédios e curou 40 de vida]", "blue", 0);
 				StoreMenu(p);
 			}
 			break;
